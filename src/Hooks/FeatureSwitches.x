@@ -168,6 +168,15 @@ static NSNumber* FeatureSwitchOverrideValueForKey(NSString* key) {
         return @(![BHTSettings boolForKey:@"hide_grok_analyze"]);
     }
 
+    if ([key isEqualToString:@"grok_ios_grok_bot_upsells_enabled"] ||
+        [key isEqualToString:@"grok_ios_grok_bot_sidebar_enabled"] ||
+        [key isEqualToString:@"grok_ios_grok_bot_home_header_enabled"] ||
+        [key isEqualToString:@"grok_ios_grok_bot_home_hero_enabled"] ||
+        [key isEqualToString:@"grok_ios_grok_bot_preset_enabled"] ||
+        [key isEqualToString:@"grok_ios_grok_bot_tab_icon_enabled"]) {
+        return @NO;
+    }
+
     // Session token appended to shared/copied links (&t=)
     if ([key isEqualToString:@"rehire_share_update_url_enabled"]) {
         return @NO;
@@ -211,6 +220,14 @@ static NSNumber* FeatureSwitchOverrideValueForKey(NSString* key) {
         return @(![BHTSettings boolForKey:@"restore_reply_context"]);
     }
 
+    if ([key isEqualToString:@"ios_ui_multi_media_carousel_avatar_avoidance_enabled"] ||
+        [key isEqualToString:@"ios_ui_multi_media_carousel_enabled"] ||
+        [key isEqualToString:@"ios_ui_quote_tweet_multi_media_carousel_enabled"]) {
+        if ([BHTSettings boolForKey:@"disable_media_carousel"]) {
+            return @NO;
+        }
+    }
+
     // Video captions
     if ([key isEqualToString:@"ios_tav_default_closed_captions_enabled"] ||
         [key isEqualToString:@"ios_audio_transcription_subtitles_vod_enabled"]) {
@@ -226,6 +243,11 @@ static NSNumber* FeatureSwitchOverrideValueForKey(NSString* key) {
         return @YES;
     }
 
+    if ([key isEqualToString:
+                 @"home_timeline_foreground_refresh_min_background_seconds"]) {
+        return [BHTSettings boolForKey:@"no_focus_lost"] ? @(315360000.0) : nil;
+    }
+
     // Communities, Spaces, News and Grok are enabled outright for every account.
     if ([key isEqualToString:@"ai_trends_ios_enable_news_tab"] ||
         [key isEqualToString:@"voice_rooms_consumption_enabled"] ||
@@ -237,6 +259,15 @@ static NSNumber* FeatureSwitchOverrideValueForKey(NSString* key) {
     // The Media tab reads its switch as an integer and shows on this sentinel.
     if ([key isEqualToString:@"media_tab_enabled"]) {
         return @99;
+    }
+
+    if ([key isEqualToString:@"grok_ios_grok_bot_upsells_enabled"] ||
+        [key isEqualToString:@"grok_ios_grok_bot_sidebar_enabled"] ||
+        [key isEqualToString:@"grok_ios_grok_bot_home_header_enabled"] ||
+        [key isEqualToString:@"grok_ios_grok_bot_home_hero_enabled"] ||
+        [key isEqualToString:@"grok_ios_grok_bot_preset_enabled"] ||
+        [key isEqualToString:@"grok_ios_grok_bot_tab_icon_enabled"]) {
+        return @NO;
     }
 
     // 0 hides the Communities tab, 1 is contextual-only; anything else shows it.
@@ -416,6 +447,16 @@ static NSNumber* FeatureSwitchOverrideValueForKey(NSString* key) {
     return override ? override.integerValue : %orig;
 }
 
+- (double)doubleForKey:(NSString*)key {
+    NSNumber* override = FeatureSwitchOverrideValueForKey(key);
+    return override ? override.doubleValue : %orig;
+}
+
+- (double)unsafePeekDoubleForKey:(NSString*)key {
+    NSNumber* override = FeatureSwitchOverrideValueForKey(key);
+    return override ? override.doubleValue : %orig;
+}
+
 // Some reads, like the default captions setup, only consult the value when the
 // switch reports a non-default one.
 - (BOOL)hasNonDefaultValueForKey:(NSString*)key {
@@ -458,6 +499,16 @@ static NSNumber* FeatureSwitchOverrideValueForKey(NSString* key) {
 
 - (BOOL)hasNonDefaultValueForKey:(NSString*)key {
     return FeatureSwitchOverrideValueForKey(key) ? YES : %orig;
+}
+
+- (double)doubleForKey:(NSString*)key {
+    NSNumber* override = FeatureSwitchOverrideValueForKey(key);
+    return override ? override.doubleValue : %orig;
+}
+
+- (double)unsafePeekDoubleForKey:(NSString*)key {
+    NSNumber* override = FeatureSwitchOverrideValueForKey(key);
+    return override ? override.doubleValue : %orig;
 }
 
 %end
@@ -521,7 +572,7 @@ static NSNumber* FeatureSwitchOverrideValueForKey(NSString* key) {
 %hook T1AccountsViewController
 
 - (void)private_startLoginFlowWithSender:(id)sender {
-    [LegacyLoginViewController presentLoginFrom:(UIViewController*)self];
+    [WebLoginViewController presentLoginFrom:(UIViewController*)self];
 }
 
 %end
@@ -533,7 +584,7 @@ static NSNumber* FeatureSwitchOverrideValueForKey(NSString* key) {
         %orig;
         return;
     }
-    completion([LegacyLoginViewController loginRootNavigationController]);
+    completion([WebLoginViewController loginRootNavigationController]);
 }
 
 %end
@@ -853,7 +904,7 @@ static __thread BOOL DashPanelIDQuery = NO;
 
 // MARK: - Video upload quality
 %hook T1VideoQualityUploadSettings
-- (BOOL)shouldAllowFullHdVideoUpload:(long long)upload{
+- (BOOL)shouldAllowFullHdVideoUpload:(long long)upload {
     return [BHTSettings boolForKey:@"upload_full_hd_videos"] ? YES : %orig;
 }
 %end

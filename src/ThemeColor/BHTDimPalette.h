@@ -23,6 +23,7 @@ BOOL BHTDimThemeEnabled(void);
 UIColor* BHTDimBackgroundColor(void);
 UIColor* BHTDimElevatedBackgroundColor(void);
 UIColor* BHTDimHighlightBackgroundColor(void);
+UIColor* BHTDimSearchPillColor(void);
 
 /**
  * Best-effort remap for a color that's already been resolved for a trait
@@ -45,7 +46,6 @@ UIColor* _Nullable BHTDimReplacementForResolvedColor(UIColor* resolved);
  * category -- undocumented, and it didn't produce reliable results here.
  */
 BOOL BHTColorIsCloseToWhite(UIColor* _Nullable color);
-
 
 /**
  * Wraps a live TAEColorPalette-conforming object, substituting Dim's navy

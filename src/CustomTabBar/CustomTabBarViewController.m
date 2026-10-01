@@ -310,7 +310,7 @@ static UIViewController* findViewControllerOfClass(UIViewController* vc,
     UIAlertController* alert = [UIAlertController
         alertControllerWithTitle:
             [[BHTBundle sharedBundle]
-                localizedTwitterStringForKey:
+                localizedStringForKey:
                     @"SUBSCRIPTION_TAB_CUSTOMIZATION_RESTORE_BUTTON_TITLE"]
                          message:[[BHTBundle sharedBundle]
                                      localizedStringForKey:
@@ -318,7 +318,7 @@ static UIViewController* findViewControllerOfClass(UIViewController* vc,
                   preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction
                          actionWithTitle:[[BHTBundle sharedBundle]
-                                             localizedTwitterStringForKey:
+                                             localizedStringForKey:
                                                  @"CONTINUE_ACTION_LABEL"]
                                    style:UIAlertActionStyleDestructive
                                  handler:^(UIAlertAction* _Nonnull action) {
@@ -328,7 +328,7 @@ static UIViewController* findViewControllerOfClass(UIViewController* vc,
                                  }]];
     [alert
         addAction:[UIAlertAction actionWithTitle:[[BHTBundle sharedBundle]
-                                                     localizedTwitterStringForKey:
+                                                     localizedStringForKey:
                                                          @"CANCEL_ACTION_LABEL"]
                                            style:UIAlertActionStyleCancel
                                          handler:nil]];
@@ -428,8 +428,9 @@ static UIViewController* findViewControllerOfClass(UIViewController* vc,
     [footer.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 
     NSString* title = [[BHTBundle sharedBundle]
-        localizedTwitterStringForKey:
+        localizedStringForKey:
             @"SUBSCRIPTION_TAB_CUSTOMIZATION_RESTORE_BUTTON_TITLE"];
+
     UIButton* restore = [objc_getClass("TFNButton") buttonWithTitle:title
                                                          imageNamed:nil
                                                               style:2

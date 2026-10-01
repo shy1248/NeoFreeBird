@@ -126,23 +126,19 @@
 %end
 
 %hook UIView
--(void)didMoveToWindow {
+- (void)didMoveToWindow {
     %orig;
-    if ([BHTSettings boolForKey:@"hide_trends"] 
-    && [self.accessibilityIdentifier isEqualToString:@"T1TwitterSwift.TrendsSidebarViewController"] 
-    && is_iPad()) {
+    if ([BHTSettings boolForKey:@"hide_trends"] && [self.accessibilityIdentifier isEqualToString:@"T1TwitterSwift.TrendsSidebarViewController"] && is_iPad()) {
         self.hidden = YES;
         self.userInteractionEnabled = NO;
-        for (UIView *subview in self.subviews) {
+        for (UIView* subview in self.subviews) {
             subview.hidden = YES;
         }
     }
-    if ([BHTSettings boolForKey:@"hide_who_to_follow"] 
-    && [self.accessibilityIdentifier isEqualToString:@"T1UserRecommendationsViewController"] 
-    && is_iPad()) {
+    if ([BHTSettings boolForKey:@"hide_who_to_follow"] && [self.accessibilityIdentifier isEqualToString:@"T1UserRecommendationsViewController"] && is_iPad()) {
         self.hidden = YES;
         self.userInteractionEnabled = NO;
-        for (UIView *subview in self.subviews) {
+        for (UIView* subview in self.subviews) {
             subview.hidden = YES;
         }
     }
@@ -181,6 +177,13 @@
 
 - (void)setFollowControlHidden:(BOOL)hidden {
     %orig([BHTSettings boolForKey:@"hide_follow_button"] ? YES : hidden);
+}
+- (void)didMoveToWindow {
+    if ([BHTSettings boolForKey:@"hide_follow_button"]) {
+        self.messageButton.hidden = YES;
+        self.messageButton.userInteractionEnabled = NO;
+        self.messageButton.alpha = 0.0;
+    }
 }
 
 %end

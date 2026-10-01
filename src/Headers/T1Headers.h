@@ -23,6 +23,22 @@
 @interface TUIFollowControlCustomScreenshot : UIView
 @end
 
+// Follow/block control on profiles and user rows. Each destructive action is
+// split in two: -_blockUser:event: puts up the confirmation and -_doBlockUser:
+// event: is what its confirm button ends up calling.
+@interface TUIFollowControl : UIView
+@property (nonatomic) BOOL confirmBlock;
+- (void)_doBlockUser:(id)user event:(id)event;
+- (void)_doUnblockUser:(id)user event:(id)event;
+- (void)_doBlockMessageUser:(id)user event:(id)event;
+- (void)_doUnblockMessageUser:(id)user event:(id)event;
+@end
+
+@interface TUIFollowButtonV2 : UIControl
+@property (nonatomic) BOOL confirmBlock;
+- (void)buttonTapped;
+@end
+
 @interface TTMAssetVideoFile : NSObject
 @property (nonatomic, copy, readonly) NSString* filePath;
 @property (nonatomic, assign, readonly) CGFloat duration;
@@ -94,24 +110,21 @@
 
 #pragma mark - Profile
 
-@interface T1ProfileActionButtonSpec : NSObject
-- (instancetype)initWithPosition:(NSUInteger)position
-                        priority:(NSUInteger)priority
-                 visibilityBlock:(BOOL (^)(double))visibilityBlock
-             buttonCreationBlock:(UIView* (^)(void))buttonCreationBlock;
-@end
-
 @interface T1ProfileUserViewModel : NSObject
 @property (readonly, copy, nonatomic) NSString* location;
 @property (readonly, copy, nonatomic) NSString* fullName;
 @property (readonly, copy, nonatomic) NSString* username;
 @property (readonly, copy, nonatomic) NSString* bio;
 @property (readonly, copy, nonatomic) NSString* url;
+@property (readonly, copy, nonatomic) TFNTwitterUserDataSource* userDataSource;
 @property (readonly, nonatomic) NSNumber* tweetCount;
 @end
 
 @interface T1ProfileHeaderViewController : UIViewController
 @property (retain, nonatomic) T1ProfileUserViewModel* viewModel;
+// Base TFNActionItems for the profile's "More actions" menu, which the Swift
+// action button layer asks its host for before presenting.
+- (id)profileMoreActionsBaseActionItemsWithSender:(id)sender;
 @end
 
 // Hooked for unrounded tweet/post count
@@ -131,12 +144,32 @@
 @property (nonatomic) __weak id<T1StatusInlineActionButtonDelegate> delegate;
 @end
 
+@interface TTAStatusAuthorView : UIView
+@property UIButton* messageButton;
+@end
+
 @interface TTAStatusInlineReplyButton : UIView
 @property (nonatomic) __weak id<T1StatusInlineActionButtonDelegate> delegate;
 @end
 
 @interface T1PersistentComposeViewController : UIViewController
 @property (readonly, nonatomic) id statusViewModel;
+- (void)_t1_sendReply;
+@end
+
+@interface T1ImmersiveFullScreenViewController : UIViewController
+@property (retain, nonatomic) UIPanGestureRecognizer* dismissGesture;
+@end
+
+@interface T1ImmersiveViewController : UIViewController
+@end
+
+@interface T1ImmersiveViewControllerV2 : UIViewController
+@end
+
+@interface T1URTTimelineStatusItemViewModel : NSObject
+@property (nonatomic, readonly) BOOL isRetweet;
+@property (nonatomic, readonly) TFNTwitterUser* representedFromUser;
 @end
 
 @protocol TTACoreStatusViewEventHandler <NSObject>
@@ -196,16 +229,7 @@
 @property (nonatomic, readonly) NSArray* inlineMediaInfos;
 @end
 
-// DM voice message view (DMAttachments.AttachmentAssetAudioView). Not nested
-// inside MessageAttachmentView (confirmed on-device), so it gets its own
-// download context menu interaction rather than sharing that one -- see
-// MediaDownloads.x for how the playable URL is captured and why this wins
-// over the stock DM context menu on long-press.
-@interface _TtC13DMAttachments24AttachmentAssetAudioView : UIView
-@property (nonatomic, strong) UIContextMenuInteraction* voiceDownloadInteraction;
-@end
-
-@interface _TtC13DMAttachments24AttachmentAssetAudioView () <UIContextMenuInteractionDelegate>
+@interface _TtC16ChatConversation26MessageAttachmentAudioView : UIView
 @end
 
 #pragma mark - Host & web views
@@ -222,6 +246,7 @@
 - (void)setCurrentURL:(NSURL*)url;
 @property (nonatomic, readonly) NSURL* currentURL;
 - (WKWebView*)webView;
+- (id)updateConfiguration:(id)configuration;
 @end
 
 @interface T1WebViewController : T1BaseWebViewController
@@ -254,7 +279,6 @@
 @end
 
 @interface _TtC14T1TwitterSwift17VideoControlsView : UIView
-- (void)timestampLabelTapped;
 @end
 
 @interface T1ConversationFooterTextView : TFNAttributedTextView
@@ -262,7 +286,7 @@
 - (void)updateFooterTextView;
 @end
 
-@interface T1VideoQualityUploadSettings: NSObject
+@interface T1VideoQualityUploadSettings : NSObject
 - (_Bool)shouldAllowFullHdVideoUpload:(long long)upload;
 @end
 // Hooked for unrounded follower/following counts
@@ -273,8 +297,60 @@
                        highlighted:(_Bool)arg4;
 @end
 
-
 @interface T1AnimatedLaunchScreenView : UIView
 - (void)layoutSubviews;
 - (void)traitCollectionDidChange:(id)change;
+@end
+
+@interface T1PollingResultsView : UIView
+@property (nonatomic) double percentage;
+@property (retain, nonatomic) NSString* percentageString;
+@property (nonatomic) _Bool hasVoted;
+@end
+
+@interface T1PollingCardView : UIView
+- (id)initWithFrame:(CGRect)frame;
+@property (retain, nonatomic) NSArray* choiceButtons;
+@property (retain, nonatomic) NSArray* resultViews;
+@property (retain, nonatomic) TFNTappableHighlightView* pollChoiceContainer;
+@property (retain, nonatomic) TFNTappableHighlightView* pollResultContainer;
+@property (retain, nonatomic) TFNTappableHighlightView* pollStatusContainer;
+@end
+
+@interface TFCCardData : NSObject
+@property (readonly, copy, nonatomic) NSString* name;
+- (NSString*)stringForKey:(NSString*)key;
+- (NSString*)stringForKey:(NSString*)key defaultValue:(NSString*)value;
+- (NSNumber*)numberForKey:(NSString*)key;
+- (NSNumber*)numberFromStringForKey:(NSString*)key;
+- (BOOL)boolForKey:(NSString*)key;
+@end
+
+@interface TAVPlaybackState : NSObject
+// AVPlayer semantics: 0 = paused, 1 = waiting to play, 2 = playing
+@property (nonatomic, readonly) long long timeControlStatus;
+@end
+
+@interface TAVPlayer : NSObject
+@property (nonatomic, readonly) TAVPlaybackState* playbackState;
+- (void)play;
+- (void)pause;
+- (void)playOrReplay;
+@end
+
+@interface _TtC14T1TwitterSwift22ImmersiveVideoPageView : UIView
+@end
+
+@interface _TtC14T1TwitterSwift17ImmersiveCardView : UIView
+- (void)setPausedByUser:(BOOL)paused;
+@end
+
+@interface _TtC16ChatConversation24ScreenshotProtectionView : UIView
+@end
+
+@interface T1AppSplitSideBarViewController : UIViewController
+@end
+
+@interface T1ViewControllerScribeEventObserver : NSObject
+- (void)viewControllerApplicationDidBecomeActive:(id)active;
 @end

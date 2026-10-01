@@ -10,6 +10,16 @@
 
 "CONFIRM_ALERT_MESSAGE" = "Sure you meant to do that?";
 
+"YES_ACTION_LABEL" = "Yes";
+"NO_ACTION_LABEL" = "No";
+"CANCEL_ACTION_LABEL" = "Cancel";
+"CONTINUE_ACTION_LABEL" = "Continue";
+"DONE" = "Done";
+"SAVE" = "Save";
+"SAVE_ACTION_LABEL" = "Save";
+"OK_ACTION_LABEL" = "OK";
+
+
 /*Settings*/
 "MODERN_SETTINGS_LAYOUT_TITLE" = "General";
 "MODERN_SETTINGS_LAYOUT_SUBTITLE" = "Lock the app, keep the navigation bar visible, and more.";
@@ -62,8 +72,14 @@
 "HIDE_WHO_TO_FOLLOW_TITLE" = "No 'Who to follow'";
 "HIDE_WHO_TO_FOLLOW_DETAIL" = "Remove follow suggestions.";
 
+"NO_FOCUS_LOST_TITLE" = "No focus lost";
+"NO_FOCUS_LOST_DETAIL" = "Blocks Twitter from detecting when you've switched to another app, so you won't lose your place in a thread.";
+
 "HIDE_TIMELINE_PROMPTS_TITLE" = "No timeline prompts";
 "HIDE_TIMELINE_PROMPTS_DETAIL" = "Remove banners like 'Add contacts'.";
+
+"HIDE_BLOCKED_RETWEETS_TITLE" = "Hide blocked retweets";
+"HIDE_BLOCKED_RETWEETS_DETAIL" = "Hide retweets of accounts who've blocked you.";
 
 "PADLOCK_TITLE" = "Lock Twitter";
 "PADLOCK_DETAIL" = "Require Face ID or a passcode to open Twitter.";
@@ -83,14 +99,26 @@
 "LIKE_CONFIRM_TITLE" = "Confirm likes";
 "LIKE_CONFIRM_DETAIL" = "Ask before liking a Tweet.";
 
+"USE_TENOR_GIFS_TITLE" = "Use Tenor GIFs";
+"USE_TENOR_GIFS_DETAIL" = "Use Tenor GIFs instead of Twitter's GIFs (GIPHY). Tenor has more options.";
+
 "TWEET_CONFIRM_TITLE" = "Confirm Tweets";
 "TWEET_CONFIRM_DETAIL" = "Ask before you post a Tweet.";
+
+"SHOW_POLL_RESULTS_TITLE" = "Show poll results before voting";
+"SHOW_POLL_RESULTS_DETAIL" = "Appends the poll results to option names before you vote, so you can see how others have voted.";
+
+"SHOW_ACCOUNT_LOCATION_TITLE" = "Show account location";
+"SHOW_ACCOUNT_LOCATION_DETAIL" = "Show the location of the account that posted a Tweet in the tweet footer.";
 
 "HIDE_BLUE_VERIFIED_TITLE" = "Hide Blue verified checkmarks";
 "HIDE_BLUE_VERIFIED_DETAIL" = "Hide paid verified checkmark on Tweets. This does not include brand/government accounts.";
 
 "HIDE_VIEW_COUNT_TITLE" = "Hide views";
 "HIDE_VIEW_COUNT_DETAIL" = "Don't show views under Tweets.";
+
+"DISABLE_MEDIA_CAROUSEL_TITLE" = "Disable media carousel";
+"DISABLE_MEDIA_CAROUSEL_DETAIL" = "Reverts the new look for mulitple media attachments.";
 
 "HIDE_BOOKMARK_BUTTON_TITLE" = "Hide bookmarks";
 "HIDE_BOOKMARK_BUTTON_DETAIL" = "Remove the bookmark button from Tweets.";
@@ -129,7 +157,10 @@
 "HIDE_TYPING_INDICATOR_DETAIL" = "Stop sending the \"typing...\" indicator to other people in chats.";
 
 "DOWNLOAD_VOICE_MESSAGES_TITLE" = "Download voice messages";
-"DOWNLOAD_VOICE_MESSAGES_DETAIL" = "Save voice messages to your device after playing them (long-press on an audio message to download it).";
+"DOWNLOAD_VOICE_MESSAGES_DETAIL" = "Save voice messages to your device after playing them (long-press on an audio message with 2 fingers to download it).";
+
+"BLOCK_SCREENSHOT_DETECTION_TITLE" = "Block screenshot detection";
+"BLOCK_SCREENSHOT_DETECTION_DETAIL" = "Allows you to screenshot \"secure\" chats without being blocked.";
 
 /*Profiles*/
 "FOLLOW_CONFIRM_TITLE" = "Confirm follows";
@@ -137,6 +168,9 @@
 
 "COPY_PROFILE_INFO_TITLE" = "Copy profile details";
 "COPY_PROFILE_INFO_DETAIL" = "Copy usernames, bios, and more with one tap.";
+
+"FAST_BLOCK_TITLE" = "Fast block/mute";
+"FAST_BLOCK_DETAIL" = "Block or mute accounts without the confirmation dialog.";
 
 "DISABLE_ARTICLES_TITLE" = "No Articles tab";
 "DISABLE_ARTICLES_DETAIL" = "Hide the Articles tab in profiles.";
@@ -146,6 +180,9 @@
 
 "HIDE_FOLLOW_BUTTON_TITLE" = "No Follow button on Tweets";
 "HIDE_FOLLOW_BUTTON_DETAIL" = "Hides the Follow button on Tweets.";
+
+"HIDE_MESSAGE_BUTTON_TITLE" = "No Message button on Tweets";
+"HIDE_MESSAGE_BUTTON_DETAIL" = "Hides the Message button on Tweets.";
 
 "RESTORE_FOLLOW_BUTTON_TITLE" = "No Subscribe button";
 "RESTORE_FOLLOW_BUTTON_DETAIL" = "Hides the Subscribe button on Tweets and in profiles.";
@@ -171,6 +208,9 @@
 "RESTORE_VIDEO_TIMESTAMP_TITLE" = "Video timestamp";
 "RESTORE_VIDEO_TIMESTAMP_DETAIL" = "Shows timestamp on immersive player.";
 
+"TAP_TO_PAUSE_TITLE" = "Tap to pause videos";
+"TAP_TO_PAUSE_DETAIL" = "Tap with 2 fingers on a video to pause it, instead of having to use the pause button.";
+
 "DISABLE_IMMERSIVE_SCROLL_TITLE" = "No video feed scrolling";
 
 "DISABLE_VIDEO_DOCKING_TITLE" = "No video docking";
@@ -184,6 +224,12 @@
 
 "DOWNLOAD_VIDEOS_TITLE" = "Download media";
 "DOWNLOAD_VIDEOS_DETAIL" = "Save videos or GIFs right from the Tweet overflow menu.";
+
+"DOWNLOAD_HIGHEST_QUALITY_TITLE" = "Always download highest quality";
+"DOWNLOAD_HIGHEST_QUALITY_DETAIL" = "Skip the quality picker and save the best MP4 straight away.";
+
+"DOWNLOAD_ALL_VIDEOS_TITLE" = "Download all videos";
+"DOWNLOAD_ALL_VIDEOS_DETAIL" = "Add an option to download every video in a Tweet.";
 
 "UPLOAD_FULL_HD_VIDEOS_TITLE" = "Upload full HD videos";
 "UPLOAD_FULL_HD_VIDEOS_DETAIL" = "Unlock the ability to upload videos in 1080p.";
@@ -250,6 +296,7 @@
 "FETCHING_PROGRESS_TITLE" = "Just a second...";
 "DOWNLOAD_AS_GIF_OPTION_TITLE" = "Download as GIF";
 "DOWNLOAD_AS_MP4_OPTION_TITLE" = "Download as MP4";
+"DOWNLOAD_ALL_VIDEOS_OPTION_TITLE" = "Download all videos";
 
 /*App icon*/
 
@@ -260,6 +307,8 @@
 "COPY_PROFILE_INFO_MENU_OPTION_4" = "Copy website";
 "COPY_PROFILE_INFO_MENU_OPTION_5" = "Copy location";
 "COPY_PROFILE_INFO_MENU_OPTION_6" = "Copy profile URL";
+"COPY_PROFILE_INFO_MENU_OPTION_7" = "Copy user ID";
+"COPY_PROFILE_INFO_MENU_OPTION_8" = "Copy date joined";
 
 /*Theme*/
 "THEME_SETTINGS_NAVIGATION_TITLE" = "Theme";
@@ -306,6 +355,8 @@
 
 "SOURCE_UNAVAILABLE" = "Source Unavailable";
 
+"LOCATION_UNAVAILABLE" = "Location Unavailable";
+
 "CONTRIBUTOR_PAGE_SECTION_HEADER_TITLE" = "Contributors";
 
 /*App lock*/
@@ -329,6 +380,10 @@
 "LEGACY_LOGIN_VERIFYING_STATUS" = "Verifying…";
 "LEGACY_LOGIN_SIGNING_IN_STATUS" = "Signing in…";
 "LEGACY_LOGIN_UNAVAILABLE_TITLE" = "Unavailable";
+"PHONE_OR_EMAIL_OR_USERNAME_LABEL" = "Phone, email, or username";
+"PASSWORD_LABEL" = "Password";
+"LOG_IN_ACTION_LABEL" = "Log in";
+"LOG_IN_TITLE" = "Log in";
 "LEGACY_LOGIN_CLASSES_MISSING_MESSAGE" = "Login classes missing.";
 "LEGACY_LOGIN_BUILD_COMMAND_FAILED_MESSAGE" = "Could not build command.";
 "LEGACY_LOGIN_CRASH_AVOIDED_TITLE" = "Crash avoided";
@@ -343,3 +398,49 @@
 "LEGACY_LOGIN_RATE_LIMITED_TITLE" = "Likely rate limited (243)";
 "LEGACY_LOGIN_RATE_LIMITED_MESSAGE" = "Too many attempts. Wait a while or switch network/VPN, then try again.\n\nDetails:\n%@";
 "LEGACY_LOGIN_UNKNOWN_ERROR" = "Unknown error";
+
+"DOWNLOAD_ACTIVITY_VIEW_LABEL" = "Download media";
+"DOWNLOAD_LIVE_ACTIVITY_DOWNLOADING" = "Downloading";
+
+/* Subscription Keys */
+"SUBSCRIPTION_APP_ICON_SETTINGS_TITLE" = "Change app icon";
+"SUBSCRIPTION_APP_ICON_SETTINGS_DETAIL" = "Choose a custom app icon for your device's home screen. Change it at any time.";
+
+"SUBSCRIPTION_TAB_CUSTOMIZATION_RESTORE_BUTTON_TITLE" = "Restore to default";
+"Restore to default" = "Restore to default";
+
+"SUBSCRIPTION_UNDO_SEND_DURATION_TITLE" = "Undo Duration";
+"SUBSCRIPTION_UNDO_SEND_DURATION_DETAIL" = "Choose how long the undo button will remain after sending a tweet.";
+
+/* Presets — settings import and export */
+"SETTINGS_EXPORT_TITLE" = "Export settings";
+"SETTINGS_IMPORT_TITLE" = "Import settings";
+
+"SETTINGS_EXPORT_FAILED_TITLE" = "Export failed";
+"SETTINGS_EXPORT_WRITE_FAILED" = "The settings file couldn't be created.";
+
+"SETTINGS_IMPORT_CONFIRM_TITLE" = "Import settings?";
+"SETTINGS_IMPORT_CONFIRM_MESSAGE" = "Your current NeoFreeBird settings will be replaced by the ones in the file you choose.";
+"SETTINGS_IMPORT_CONFIRM_BUTTON" = "Choose file";
+"SETTINGS_IMPORT_FAILED_TITLE" = "Import failed";
+"SETTINGS_IMPORT_SUCCESS_TITLE" = "Settings imported";
+"SETTINGS_IMPORT_SUCCESS_MESSAGE" = "%ld settings were applied. Restart the app for all of them to take effect.";
+"SETTINGS_IMPORT_RESTART_BUTTON" = "Restart";
+"SETTINGS_IMPORT_LATER_BUTTON" = "Later";
+
+"SETTINGS_TRANSFER_UNREADABLE_FILE" = "That file couldn't be read.";
+"SETTINGS_TRANSFER_MALFORMED_FILE" = "That file isn't a NeoFreeBird settings export.";
+"SETTINGS_TRANSFER_NO_SETTINGS" = "That file didn't contain any settings this version recognises.";
+
+/* Common UI Elements & Time Selectors */
+"Off" = "Off";
+"Cancel" = "Cancel";
+"5 seconds" = "5 seconds";
+"10 seconds" = "10 seconds";
+"20 seconds" = "20 seconds";
+"30 seconds" = "30 seconds";
+"60 seconds" = "60 seconds";
+
+/* Undo Duration Labels (Added for TweetsSettingsViewController) */
+"GENERIC_OFF_LABEL" = "Off";
+"SUBSCRIPTION_UNDO_SEND_DURATION_LABEL" = "%ld seconds";

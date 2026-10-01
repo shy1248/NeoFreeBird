@@ -10,10 +10,10 @@
 #import "Core/BHTManager.h"
 #import "Settings/ModernSettingsCells.h"
 #import "Settings/ModernSettingsPageViewController.h"
-#import "Settings/ModernSettingsPlaceholderViewController.h"
 #import "Settings/Pages/AppearanceSettingsViewController.h"
 #import "Settings/Pages/ChatSettingsViewController.h"
 #import "Settings/Pages/DebugSettingsViewController.h"
+#import "Settings/Pages/PresetsSettingsViewController.h"
 #import "Settings/Pages/ProfilesSettingsViewController.h"
 #import "Settings/Pages/TimelinesSettingsViewController.h"
 #import "Settings/Pages/TweetsSettingsViewController.h"
@@ -286,6 +286,12 @@
             @"userID": @"1541742676009226241"
         },
         @{
+            @"title": @"OrionBlur",
+            @"username": @"orionblur",
+            @"avatarURL": @"https://unavatar.io/x/orionblur",
+            @"userID": @"2023606533255540736"
+        },
+        @{
             @"title": @"timi2506",
             @"username": @"timi2506",
             @"avatarURL": @"https://unavatar.io/github/timi2506?fallback=https://neofreebird.com/images/"
@@ -329,22 +335,10 @@
     ];
     self.contributorCells = @[
         @{
-            @"title": @"thea 🪽",
-            @"username": @"theacrat",
-            @"avatarURL": @"https://unavatar.io/x/theacrat",
-            @"userID": @"1830499505718075392"
-        },
-        @{
             @"title": @"matt sephton",
             @"username": @"gingerbeardman",
             @"avatarURL": @"https://unavatar.io/x/gingerbeardman",
             @"userID": @"40743"
-        },
-        @{
-            @"title": @"OrionBlur",
-            @"username": @"orionblur",
-            @"avatarURL": @"https://unavatar.io/x/orionblur",
-            @"userID": @"2023606533255540736"
         }
     ];
 
@@ -461,15 +455,15 @@
     self.tableView.tableFooterView = footerView;
 }
 
-- (void)footerLabelTapped:(UIGestureRecognizer *)sender {
-    NSURL *url = [NSURL URLWithString:@"https://github.com/orionblur/NeoFreeBird"];
+- (void)footerLabelTapped:(UIGestureRecognizer*)sender {
+    NSURL* url = [NSURL URLWithString:@"https://github.com/orionblur/NeoFreeBird"];
     if ([[UIApplication sharedApplication] canOpenURL:url]) {
         [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
     }
 }
-- (void)footerLabelLongPressed:(UILongPressGestureRecognizer *)sender {
+- (void)footerLabelLongPressed:(UILongPressGestureRecognizer*)sender {
     if (sender.state == UIGestureRecognizerStateBegan) {
-        NSURL *url = [NSURL URLWithString:@"https://www.youtube.com/watch?v=36lMtH5aj-8"];
+        NSURL* url = [NSURL URLWithString:@"https://youtu.be/ScvxT0RItYE"];
         if ([[UIApplication sharedApplication] canOpenURL:url]) {
             [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
         }
@@ -760,9 +754,8 @@
 }
 
 - (void)showPresetsSettings {
-    ModernSettingsPlaceholderViewController* vc = [[ModernSettingsPlaceholderViewController alloc]
-        initWithAccount:self.account
-               titleKey:@"MODERN_SETTINGS_PRESETS_TITLE"];
+    PresetsSettingsViewController* vc =
+        [[PresetsSettingsViewController alloc] initWithAccount:self.account];
     [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)showChatSettings {

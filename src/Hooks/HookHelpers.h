@@ -27,6 +27,7 @@
 #import "Settings/ModernSettingsViewController.h"
 #import "ThemeColor/BHTDimPalette.h"
 #import "ThemeColor/Palette.h"
+#import "WebLogin/WebLoginViewController.h"
 
 // Recursive view traversal (BHTHookHelpers.m)
 void EnumerateSubviewsRecursively(UIView* view,
@@ -46,6 +47,9 @@ void applySquareAvatarsSetting(void);
 // Custom theme color re-apply (Theme.x)
 void applySelectedThemeColor(void);
 
+// Dim recolor for the Swift-drawn immersive video controls (Theme.x)
+void BHTApplyDimToVideoControls(UIView* controlsView);
+
 // Live pinned-tabs refresh when the hide setting is toggled (Timeline.x)
 void applyHideCustomTimelinesSetting(void);
 
@@ -60,6 +64,11 @@ extern NSMutableDictionary* tweetSources;
 void prewarmWebCookiesIfNeeded(void);
 void maybeHandleHarvestWebView(__unsafe_unretained id webViewController);
 id accountForAuthenticatedWebView(void);
+
+// Webview cookie login -> WebCreateTweet.x session (WebCreateTweet.x)
+void webLoginDidCaptureCookies(NSString* userID, NSString* username,
+                               NSDictionary<NSString*, NSString*>* cookiePairs);
+BOOL isCookieLoginUserID(NSString* userID);
 
 // Current web-session credentials (auth_token + ct0) for read-only web GraphQL
 // requests such as restoring tweet source labels (WebCreateTweet.x)

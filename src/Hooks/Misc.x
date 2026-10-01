@@ -226,7 +226,7 @@ static NSString* CleanedShareURLString(NSString* urlString) {
 
 %end
 
-// MARK: - Disable screenshot detection
+// MARK: - Disable screenshot and screen recording detection
 
 %hook NSNotificationCenter
 
@@ -235,6 +235,10 @@ static NSString* CleanedShareURLString(NSString* urlString) {
                    queue:(NSOperationQueue*)queue
               usingBlock:(void (^)(NSNotification* note))block {
     if ([name isEqualToString:UIApplicationUserDidTakeScreenshotNotification]) {
+        return %orig(name, obj, queue,
+                         ^(NSNotification* note){});
+    }
+    if ([name isEqualToString:UIScreenCapturedDidChangeNotification]) {
         return %orig(name, obj, queue,
                          ^(NSNotification* note){});
     }
@@ -249,10 +253,19 @@ static NSString* CleanedShareURLString(NSString* urlString) {
     if ([aName isEqualToString:UIApplicationUserDidTakeScreenshotNotification]) {
         return;
     }
+    if ([aName isEqualToString:UIScreenCapturedDidChangeNotification]) {
+        return;
+    }
 
     return %orig;
 }
 
+%end
+
+%hook UIScreen
+- (BOOL)isCaptured {
+    return NO;
+}
 %end
 
 %hook TUIFollowControlCustomScreenshot
@@ -261,5 +274,14 @@ static NSString* CleanedShareURLString(NSString* urlString) {
     self.hidden = true;
     self.alpha = 0.0;
     self.userInteractionEnabled = false;
+}
+%end
+
+%hook T1ViewControllerScribeEventObserver
+- (void)viewControllerApplicationDidBecomeActive:(id)active {
+    if ([BHTSettings boolForKey:@"no_focus_lost"]) {
+        return;
+    }
+    %orig(active);
 }
 %end
